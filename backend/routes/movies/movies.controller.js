@@ -1,0 +1,53 @@
+import Movie from "../../models/moviesModel.js";
+
+export const getUnhandledMovies = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 20;
+    const skip = (page - 1) * limit;
+
+    const itemsCount = await Movie.countDocuments({ isHandled: false });
+
+    const unhandledMovies = await Movie.find({ isHandled: false })
+      .skip(skip)
+      .limit(limit);
+
+    return res.status(200).json({
+      page,
+      totalPages: Math.ceil(itemsCount / limit),
+      itemsCount,
+      unhandledMovies,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed to fetch unhandled movies." });
+  }
+};
+
+export const updateMovieContent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { aboutMovie } = req.body;
+
+    const updatedMovie = await Movie.findOneAndUpdate(
+      { id: parseInt(id) },
+      {
+        aboutMovie,
+        isHandled: true,
+      },
+      { new: true }
+    );
+
+    if (!updatedMovie) {
+      return res.status(404).json({ message: "Movie not found." });
+    }
+
+    res.status(200).json({
+      message: "Movie content updated successfully.",
+      updatedMovie,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed to update movie content." });
+  }
+};

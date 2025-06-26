@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const movieSchema = new mongoose.Schema({
   adult: Boolean,
-  id: Number, 
+  id: Number,
   title: String,
   posterPath: String,
   releaseDate: String,
@@ -13,4 +13,6 @@ const movieSchema = new mongoose.Schema({
   genres: [String],
 });
 
-module.exports = mongoose.model("Movie", movieSchema);
+const Movie = mongoose.model("Movie", movieSchema);
+
+export default Movie;
