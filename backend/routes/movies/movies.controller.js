@@ -3,7 +3,7 @@ import Movie from "../../models/moviesModel.js";
 export const getUnhandledMovies = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = 20;
+    const limit = 10;
     const skip = (page - 1) * limit;
 
     const itemsCount = await Movie.countDocuments({ isHandled: false });
