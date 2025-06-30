@@ -4,7 +4,7 @@ import {
   getMoviesToHandle,
   skipMovie,
   updateMovie,
-} from "../../src/services/movieServices";
+} from "../../services/movieServices";
 
 export const useGetMoviesToHandle = (page: number = 1) => {
   const { data, isLoading, error } = useQuery({
@@ -12,7 +12,11 @@ export const useGetMoviesToHandle = (page: number = 1) => {
     queryFn: () => getMoviesToHandle(page),
   });
 
-  return { data, isLoading, error };
+  const unhandledMovies = data?.unhandledMovies;
+  const totalPages = data?.totalPages
+  const itemsCount = data?.itemsCount
+
+  return { unhandledMovies, totalPages, itemsCount, isLoading, error };
 };
 
 export const useUpdateMovie = () => {

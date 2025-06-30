@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "concurrently": "^9.2.0"
+  },
+  "name": "movieapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "server": "npm run dev --prefix backend",
+    "client": "npm run dev --prefix board",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
