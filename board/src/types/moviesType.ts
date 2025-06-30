@@ -15,6 +15,8 @@ export type Movie = {
 export interface MovieRespone {
   page: number;
   totalPages: number;
-  itemsCount: number;
+  totalMoviesCount: number;
+  unhandledMoviesCount: number;
+  skippedMoviesCount: number;
   unhandledMovies: Movie[];
 }

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ErrorMessage from "../../components/ErrorMessage";
+import LoadingSmall from "../../components/LoadingSmall";
 import type { Movie } from "../../types/moviesType";
 import { useSkipMovie } from "./useMoviesHook";
-import ErrorMessage from "../../components/ErrorMessage";
 
 interface MovieCardProps {
   movie: Movie;
@@ -19,6 +20,8 @@ const MovieGridCard = ({ movie, page }: MovieCardProps) => {
   };
 
   if (error) return <ErrorMessage error={error} />;
+
+  if (isPending) return <LoadingSmall />;
 
   return (
     <>

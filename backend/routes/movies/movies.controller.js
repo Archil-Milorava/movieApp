@@ -6,7 +6,13 @@ export const getUnhandledMovies = async (req, res) => {
     const limit = 10;
     const skip = (page - 1) * limit;
 
-    const itemsCount = await Movie.countDocuments({ isHandled: false });
+    const unhandledMoviesCount = await Movie.countDocuments({
+      isHandled: false,
+      rejected: false,
+    });
+    const totalMoviesCount = await Movie.countDocuments();
+
+    const skippedMoviesCount = await Movie.countDocuments({ rejected: true });
 
     const unhandledMovies = await Movie.find({
       isHandled: false,
@@ -17,9 +23,11 @@ export const getUnhandledMovies = async (req, res) => {
 
     return res.status(200).json({
       page,
-      totalPages: Math.ceil(itemsCount / limit),
-      itemsCount,
+      totalPages: Math.ceil(unhandledMoviesCount / limit),
+      unhandledMoviesCount,
+      totalMoviesCount,
       unhandledMovies,
+      skippedMoviesCount,
     });
   } catch (error) {
     console.log(error);

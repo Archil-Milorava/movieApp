@@ -17,9 +17,19 @@ export const useGetMoviesToHandle = (page: number = 1) => {
 
   const unhandledMovies = data?.unhandledMovies;
   const totalPages = data?.totalPages;
-  const itemsCount = data?.itemsCount;
+  const unhandledMoviesCount = data?.unhandledMoviesCount;
+  const totalMoviesCont = data?.totalMoviesCount;
+  const skippedMoviesCount = data?.skippedMoviesCount;
 
-  return { unhandledMovies, totalPages, itemsCount, isLoading, error };
+  return {
+    unhandledMovies,
+    totalPages,
+    unhandledMoviesCount,
+    skippedMoviesCount,
+    totalMoviesCont,
+    isLoading,
+    error,
+  };
 };
 
 export const useGetSingleMovie = (id: string) => {
@@ -43,8 +53,8 @@ export const useUpdateMovie = () => {
     mutationFn: ({ id, description }: { id: string; description: string }) =>
       updateMovie(id, description),
     onSuccess: () => {
+      navigate(-1);
       toast.success("updated");
-      navigate("/");
     },
     onError: (err) => {
       toast.error(err.message || "something went wrong");
@@ -62,9 +72,9 @@ export const useSkipMovie = (page: number) => {
     error,
   } = useMutation({
     mutationFn: (id: string) => skipMovie(id),
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["movies", page] });
       toast.success("skipped");
-      queryClient.invalidateQueries({ queryKey: ["movies", page] });
     },
     onError: (err) => {
       toast.error(err.message || "something went wrong");

@@ -29,8 +29,12 @@ const EditMoviePage = () => {
     setShowModal(false);
   };
 
+  if (isPending) return <LoadingLarge />;
+
   return (
-    <div className="bg-[#EDE9E6] min-h-screen flex items-center justify-center p-4">
+    <div
+      className={`bg-[#EDE9E6] min-h-screen flex items-center justify-center p-4`}
+    >
       <div className="w-full max-w-3xl bg-white p-6 rounded-md shadow-md">
         {/* Poster Image */}
         <div className="flex flex-col sm:flex-row gap-6 items-center mb-6">

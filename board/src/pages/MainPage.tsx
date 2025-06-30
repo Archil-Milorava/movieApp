@@ -8,8 +8,15 @@ const MainPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
 
-  const { isLoading, error, unhandledMovies, totalPages, itemsCount } =
-    useGetMoviesToHandle(page);
+  const {
+    isLoading,
+    error,
+    unhandledMovies,
+    totalPages,
+    totalMoviesCont,
+    unhandledMoviesCount,
+    skippedMoviesCount,
+  } = useGetMoviesToHandle(page);
 
   const handlePagination = (newPage: number) => {
     setSearchParams({ page: newPage.toString() });
@@ -21,9 +28,17 @@ const MainPage = () => {
     <div className="w-full min-h-screen bg-[#EDE9E6]">
       <Link
         to={"/"}
-        className="w-full h-9 flex items-center justify-center font-semibold shadow-sm uppercase text-sm"
+        className="w-full flex items-center justify-center flex-col py-2 gap-2 font-semibold shadow-sm uppercase text-sm  "
       >
-        {itemsCount} left to handle
+        <p className="bg-green-100 text-green-900 px-3 text-xs">
+          {unhandledMoviesCount} movies left to handle
+        </p>
+        <p className="bg-red-100 text-red-900 px-3 text-xs">
+          {skippedMoviesCount} Movies skipped
+        </p>
+        <p className="bg-blue-100 text-blue-900 px-3 text-xs">
+          {totalMoviesCont} Movies Total
+        </p>
       </Link>
       {error ? (
         <ErrorMessage error={error} />
