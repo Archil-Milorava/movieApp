@@ -27,6 +27,26 @@ export const getUnhandledMovies = async (req, res) => {
   }
 };
 
+export const getSingleMovie = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const movie = await Movie.findById(id);
+
+    if (!movie) {
+      return res.status(400).json({
+        message: "movie not found",
+      });
+    }
+
+    return res.status(200).json({
+      movie,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed to fetch single movie." });
+  }
+};
+
 export const updateMovieContent = async (req, res) => {
   try {
     const { id } = req.params;

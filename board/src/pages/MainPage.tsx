@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import LoadingLarge from "../components/LoadingLarge";
 import MovieGridCard from "../features/movies/MovieGridCard";
@@ -18,22 +18,25 @@ const MainPage = () => {
   if (isLoading) return <LoadingLarge />;
 
   return (
-    <div className="w-full min-h-screen ">
-      <header className="w-full h-9 flex items-center justify-center font-semibold shadow-sm uppercase text-sm">
+    <div className="w-full min-h-screen bg-[#EDE9E6]">
+      <Link
+        to={"/"}
+        className="w-full h-9 flex items-center justify-center font-semibold shadow-sm uppercase text-sm"
+      >
         {itemsCount} left to handle
-      </header>
+      </Link>
       {error ? (
         <ErrorMessage error={error} />
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-4 p-4 justify-items-center  py-10">
             {unhandledMovies?.map((movie) => (
-              <MovieGridCard key={movie._id} movie={movie} />
+              <MovieGridCard key={movie._id} movie={movie} page={page} />
             ))}
           </div>
 
           {/* Pagination Controls */}
-          <div className="flex justify-center mt-6 gap-4 m-8">
+          <div className="flex justify-center gap-4 pb-11">
             <button
               onClick={() => handlePagination(page - 1)}
               disabled={page <= 1}

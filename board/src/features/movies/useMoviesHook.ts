@@ -1,10 +1,13 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   getMoviesToHandle,
+  getSingleMovie,
   skipMovie,
   updateMovie,
 } from "../../services/movieServices";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const useGetMoviesToHandle = (page: number = 1) => {
   const { data, isLoading, error } = useQuery({
@@ -13,36 +16,60 @@ export const useGetMoviesToHandle = (page: number = 1) => {
   });
 
   const unhandledMovies = data?.unhandledMovies;
-  const totalPages = data?.totalPages
-  const itemsCount = data?.itemsCount
+  const totalPages = data?.totalPages;
+  const itemsCount = data?.itemsCount;
 
   return { unhandledMovies, totalPages, itemsCount, isLoading, error };
 };
 
-export const useUpdateMovie = () => {
-  const { data, isPending, error } = useMutation({
-    mutationFn: (id: number) => updateMovie(id),
-    onSuccess: () => {
-      console.log("success");
-    },
-    onError: (err) => {
-      console.log(err);
-    },
+export const useGetSingleMovie = (id: string) => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["movie", id],
+    queryFn: () => getSingleMovie(id),
   });
 
-  return { data, isPending, error };
+  const singleMovie = data?.movie;
+
+  return { singleMovie, isLoading, error };
 };
 
-export const useSkipMovie = () => {
-  const { data, isPending, error } = useMutation({
-    mutationFn: (id: number) => skipMovie(id),
+export const useUpdateMovie = () => {
+  const navigate = useNavigate();
+  const {
+    mutate: performUpdate,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: ({ id, description }: { id: string; description: string }) =>
+      updateMovie(id, description),
     onSuccess: () => {
-      console.log("success");
+      toast.success("updated");
+      navigate("/");
     },
     onError: (err) => {
-      console.log(err);
+      toast.error(err.message || "something went wrong");
     },
   });
 
-  return { data, isPending, error };
+  return { performUpdate, isPending, error };
+};
+
+export const useSkipMovie = (page: number) => {
+  const queryClient = useQueryClient();
+  const {
+    mutate: performSkip,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: (id: string) => skipMovie(id),
+    onSuccess: () => {
+      toast.success("skipped");
+      queryClient.invalidateQueries({ queryKey: ["movies", page] });
+    },
+    onError: (err) => {
+      toast.error(err.message || "something went wrong");
+    },
+  });
+
+  return { performSkip, isPending, error };
 };
