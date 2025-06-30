@@ -1,4 +1,4 @@
 ** dev **
 /movies/unhandled?page=2
-/movies/update/:id - PUT - abutMovie
+/movies/update/:id - PUT - updateMovie
 /movies/skip/:id  - PUT - rejected
