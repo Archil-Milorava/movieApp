@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://www.whatwatch.store"],
     credentials: true,
   })
 );
@@ -21,5 +21,5 @@ app.use("/api/v1/movies", moviesRoute);
 
 app.listen(PORT, async () => {
   await connectDB();
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on${PORT}`);
 });
