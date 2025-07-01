@@ -26,8 +26,8 @@ export const getUnhandledMovies = async (req, res) => {
       totalPages: Math.ceil(unhandledMoviesCount / limit),
       unhandledMoviesCount,
       totalMoviesCount,
-      unhandledMovies,
       skippedMoviesCount,
+      unhandledMovies,
     });
   } catch (error) {
     console.log(error);

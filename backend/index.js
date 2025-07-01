@@ -18,8 +18,9 @@ app.use(
 app.use(express.json());
 
 app.use("/api/v1/movies", moviesRoute);
+app.use("/", (req,res) => res.send("Hello to movies app backend"))
 
 app.listen(PORT, async () => {
   await connectDB();
-  console.log(`Server running on${PORT}`);
+  console.log(`Server running on ${PORT}`);
 });
