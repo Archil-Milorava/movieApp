@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const options = {
-  baseURL: import.meta.env.NODE_ENV === "prod" ? import.meta.env.VITE_API_BASE_URL : import.meta.env.BASE_URL_DEV,
+  baseURL: import.meta.env.NODE_ENV === "prod" ? import.meta.env.API_BASE_URL : import.meta.env.BASE_URL_DEV,
   withCredentials: true,
 };
 

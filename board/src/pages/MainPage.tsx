@@ -24,6 +24,8 @@ const MainPage = () => {
 
   if (isLoading) return <LoadingLarge />;
 
+  
+
   return (
     <div className="w-full min-h-screen bg-[#EDE9E6]">
       <Link
