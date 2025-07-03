@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://whatwatch.store"],
+    origin: ["http://localhost:5173", "https://www.whatwatch.store"],
     credentials: true,
   })
 );
