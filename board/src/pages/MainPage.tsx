@@ -40,7 +40,7 @@ const MainPage = () => {
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-4 p-4 justify-items-center  py-10">
             {unhandledMovies?.map((movie) => (
-              <MovieGridCard key={movie._id} movie={movie} page={page} />
+              <MovieGridCard key={movie._id} movie={movie} page={page}  />
             ))}
           </div>
 
