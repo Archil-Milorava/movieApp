@@ -44,7 +44,7 @@ const MovieGridCard = ({ movie, page }: MovieCardProps) => {
         {isAdmin && (
           <div className="absolute bottom-0 left-0 w-full px-2 py-3 flex justify-center gap-4 z-10">
             <Link
-              to={`${movie._id}`}
+              to={`/${movie._id}`}
               className="bg-[#30a84c] text-white/90 w-[7rem] h-[2rem] flex items-center justify-center rounded-sm text-xs uppercase font-bold hover:opacity-90 transition"
             >
               edit

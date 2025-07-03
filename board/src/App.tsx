@@ -4,6 +4,8 @@ import EditMoviePage from "./pages/EditMoviePage";
 import AuthPage from "./pages/AuthPage";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import TvShowPage from "./pages/TvShowPage";
+import MoviesPage from "./pages/MoviesPage";
+import EditTvShowPage from "./pages/EditTvShow";
 
 const App = () => {
   return (
@@ -18,11 +20,28 @@ const App = () => {
           </ProtectedRoute>
         }
       />
+
       <Route
-        path="/shows"
+        path="/movies"
+        element={
+          <ProtectedRoute>
+            <MoviesPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tvshows"
         element={
           <ProtectedRoute>
             <TvShowPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/tvshows/:id"
+        element={
+          <ProtectedRoute>
+            <EditTvShowPage />
           </ProtectedRoute>
         }
       />
@@ -33,7 +52,7 @@ const App = () => {
             <EditMoviePage />
           </ProtectedRoute>
         }
-      />
+      /> 
     </Routes>
   );
 };

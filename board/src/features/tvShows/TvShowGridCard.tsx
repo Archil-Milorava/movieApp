@@ -31,7 +31,7 @@ const TvShowGridCard = ({ tvShow, page }: TvShowCardProps) => {
     <>
       <div className="relative w-full h-full max-w-[20rem] rounded-md shadow-md overflow-hidden cursor-pointer border border-[#dadadf]">
         {!isImageLoaded && (
-          <div className="absolute inset-0 h-[30rem] w-[15rem] animate-pulse" />
+          <div className=" h-[30rem] w-[15rem] bg-gray-300 animate-pulse" />
         )}
         <img
           src={tvShow.posterPath}
