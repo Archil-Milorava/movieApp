@@ -15,18 +15,18 @@ const App = () => {
       <Route
         path="/"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <MainPage />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
 
       <Route
         path="/movies"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <MoviesPage />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
       <Route

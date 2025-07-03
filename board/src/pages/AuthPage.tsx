@@ -4,7 +4,7 @@ import API from "../config/axiosConfig";
 import toast from "react-hot-toast";
 
 const AuthPage = () => {
-  console.log(import.meta.env.VITE_GOOGLE_CLIENT_ID);
+  // console.log(import.meta.env.VITE_GOOGLE_CLIENT_ID);
 
   const navigate = useNavigate();
   const handleSuccess = async (response: any) => {
