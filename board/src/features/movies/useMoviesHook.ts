@@ -1,13 +1,14 @@
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import {
   getMoviesToHandle,
   getSingleMovie,
   skipMovie,
   updateMovie,
 } from "../../services/movieServices";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 export const useGetMoviesToHandle = (page: number = 1) => {
   const { data, isLoading, error } = useQuery({

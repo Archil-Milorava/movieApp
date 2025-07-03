@@ -11,6 +11,8 @@ interface MovieCardProps {
 }
 
 const MovieGridCard = ({ movie, page }: MovieCardProps) => {
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const isAdmin = user?.role === "admin";
   const [showModal, setShowModal] = useState(false);
   const { isPending, performSkip, error } = useSkipMovie(page);
 
@@ -32,20 +34,22 @@ const MovieGridCard = ({ movie, page }: MovieCardProps) => {
           className="object-cover w-full h-full"
         />
 
-        <div className="absolute bottom-0 left-0 w-full px-2 py-3 flex justify-center gap-4 z-10">
-          <Link
-            to={`${movie._id}`}
-            className="bg-[#30a84c] text-white/90 w-[7rem] h-[2rem] flex items-center justify-center rounded-sm text-xs uppercase font-bold hover:opacity-90 transition"
-          >
-            edit
-          </Link>
-          <button
-            onClick={() => setShowModal(true)}
-            className="bg-[#e4422d] text-white/90 w-[7rem] h-[2rem] rounded-sm flex items-center justify-center text-xs uppercase font-bold hover:opacity-90 transition"
-          >
-            skip
-          </button>
-        </div>
+        {isAdmin && (
+          <div className="absolute bottom-0 left-0 w-full px-2 py-3 flex justify-center gap-4 z-10">
+            <Link
+              to={`${movie._id}`}
+              className="bg-[#30a84c] text-white/90 w-[7rem] h-[2rem] flex items-center justify-center rounded-sm text-xs uppercase font-bold hover:opacity-90 transition"
+            >
+              edit
+            </Link>
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-[#e4422d] text-white/90 w-[7rem] h-[2rem] rounded-sm flex items-center justify-center text-xs uppercase font-bold hover:opacity-90 transition"
+            >
+              skip
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Confirmation Modal */}

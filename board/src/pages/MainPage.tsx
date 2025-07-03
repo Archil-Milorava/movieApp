@@ -1,6 +1,7 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import LoadingLarge from "../components/LoadingLarge";
+import HeaderMain from "../features/header/HeaderMain";
 import MovieGridCard from "../features/movies/MovieGridCard";
 import { useGetMoviesToHandle } from "../features/movies/useMoviesHook";
 
@@ -24,24 +25,15 @@ const MainPage = () => {
 
   if (isLoading) return <LoadingLarge />;
 
-  
+
 
   return (
     <div className="w-full min-h-screen bg-[#EDE9E6]">
-      <Link
-        to={"/"}
-        className="w-full flex items-center justify-center flex-col py-2 gap-2 font-semibold shadow-sm uppercase text-sm  "
-      >
-        <p className="bg-green-100 text-green-900 px-3 text-xs">
-          {unhandledMoviesCount} movies left to handle
-        </p>
-        <p className="bg-red-100 text-red-900 px-3 text-xs">
-          {skippedMoviesCount} Movies skipped
-        </p>
-        <p className="bg-blue-100 text-blue-900 px-3 text-xs">
-          {totalMoviesCont} Movies Total
-        </p>
-      </Link>
+      <HeaderMain
+        skippedMoviesCount={skippedMoviesCount}
+        totalMoviesCont={totalMoviesCont}
+        unhandledMoviesCount={unhandledMoviesCount }
+      />
       {error ? (
         <ErrorMessage error={error} />
       ) : (
