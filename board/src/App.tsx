@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import EditMoviePage from "./pages/EditMoviePage";
 import AuthPage from "./pages/AuthPage";
@@ -52,7 +52,8 @@ const App = () => {
             <EditMoviePage />
           </ProtectedRoute>
         }
-      /> 
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
