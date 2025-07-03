@@ -15,7 +15,6 @@ const HeaderMain = ({
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const isAdmin = user?.role === "admin";
   const location = useLocation();
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -23,12 +22,15 @@ const HeaderMain = ({
     navigate("/login");
   };
 
-  const isShowsPage = location.pathname === "/shows";
+  const currentPath = location.pathname;
+  const isTvShowPage = currentPath.startsWith("/tvshows");
+  const switchPath = isTvShowPage ? "/movies" : "/tvshows";
+  const switchLabel = isTvShowPage ? "Switch to Movies" : "Switch to TV Shows";
 
   return (
     <div className="w-full px-4 py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 shadow-md border-b bg-white">
       <Link
-        to={"/"}
+        to={isTvShowPage ? "/tvshows" : "/movies"}
         className="flex flex-col sm:flex-row sm:items-center gap-4 flex-grow"
       >
         <div className="flex flex-col items-center sm:items-start">
@@ -61,10 +63,10 @@ const HeaderMain = ({
       </Link>
 
       <Link
-        to={isShowsPage ? "/" : "/shows"}
+        to={switchPath}
         className="text-sm text-blue-600 hover:underline"
       >
-        {isShowsPage ? "Switch to Movies" : "Switch to TV Shows"}
+        {switchLabel}
       </Link>
 
       <button
