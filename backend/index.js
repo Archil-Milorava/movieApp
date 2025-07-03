@@ -5,6 +5,7 @@ import cors from "cors";
 import { connectDB } from "./config/connectDB.js";
 import moviesRoute from "./routes/movies/movies.routes.js";
 import googleAuthRoute from "./routes/auth/googleAuth.js";
+import tvShowsRoute from "./routes/tvShows/tvShows.route.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -19,6 +20,7 @@ app.use(
 app.use(express.json());
 
 app.use("/api/v1/auth", googleAuthRoute);
+app.use("/api/v1/tvshows", tvShowsRoute);
 app.use("/api/v1/movies", moviesRoute);
 app.use((req, res) => {
   res.status(400).json({

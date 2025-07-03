@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const tvShowSchema = new mongoose.Schema({
   adult: Boolean,
@@ -13,4 +13,6 @@ const tvShowSchema = new mongoose.Schema({
   genres: [String],
 });
 
-module.exports = mongoose.model("TvShow", tvShowSchema);
+const TvShow = mongoose.model("TvShow", tvShowSchema);
+
+export default TvShow;

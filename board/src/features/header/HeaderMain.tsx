@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
 
 interface HeaderMainProps {
@@ -14,6 +14,7 @@ const HeaderMain = ({
 }: HeaderMainProps) => {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const isAdmin = user?.role === "admin";
+  const location = useLocation();
 
   const navigate = useNavigate();
 
@@ -21,6 +22,8 @@ const HeaderMain = ({
     localStorage.removeItem("user");
     navigate("/login");
   };
+
+  const isShowsPage = location.pathname === "/shows";
 
   return (
     <div className="w-full px-4 py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 shadow-md border-b bg-white">
@@ -55,6 +58,13 @@ const HeaderMain = ({
             {totalMoviesCont ?? 0} total
           </span>
         </div>
+      </Link>
+
+      <Link
+        to={isShowsPage ? "/" : "/shows"}
+        className="text-sm text-blue-600 hover:underline"
+      >
+        {isShowsPage ? "Switch to Movies" : "Switch to TV Shows"}
       </Link>
 
       <button

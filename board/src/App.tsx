@@ -3,6 +3,7 @@ import MainPage from "./pages/MainPage";
 import EditMoviePage from "./pages/EditMoviePage";
 import AuthPage from "./pages/AuthPage";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import TvShowPage from "./pages/TvShowPage";
 
 const App = () => {
   return (
@@ -14,6 +15,14 @@ const App = () => {
         element={
           <ProtectedRoute>
             <MainPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/shows"
+        element={
+          <ProtectedRoute>
+            <TvShowPage />
           </ProtectedRoute>
         }
       />
